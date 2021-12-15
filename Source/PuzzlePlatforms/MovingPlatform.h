@@ -22,4 +22,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mobility")
 	float speed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mobility", meta = (MakeEditWidget = true))
+	FVector target_location;
+
+private:
+
+	UPROPERTY()
+	FVector global_target_location;
+
+	UPROPERTY()
+	FVector global_start_location;
 };
