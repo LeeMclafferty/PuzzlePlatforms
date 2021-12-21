@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mobility", meta = (MakeEditWidget = true))
 	FVector target_location;
 
+	void AddActiveTrigger();
+	void RemoveActiveTrigger();
+
 private:
 
 	UPROPERTY()
@@ -33,4 +36,7 @@ private:
 
 	UPROPERTY()
 	FVector global_start_location;
+
+	UPROPERTY(EditAnywhere, Category = "Triggers")
+	int32 active_trigger = 1;
 };
