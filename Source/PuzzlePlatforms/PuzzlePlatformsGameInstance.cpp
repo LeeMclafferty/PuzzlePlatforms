@@ -27,10 +27,11 @@ void UPuzzlePlatformsGameInstance::Host()
 
 void UPuzzlePlatformsGameInstance::Join(FString ip_address)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, FString::Printf(TEXT(" Joining IP: %s"), *ip_address));
-	UWorld* world = GetWorld();
-	if (world != nullptr)
+	
+	APlayerController* player_controller = GetFirstLocalPlayerController();
+	if (player_controller != nullptr)
 	{
-		world->ServerTravel(ip_address);
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, FString::Printf(TEXT(" Joining IP: %s"), *ip_address));
+		player_controller->ClientTravel(ip_address, ETravelType::TRAVEL_Absolute);
 	}
 }
