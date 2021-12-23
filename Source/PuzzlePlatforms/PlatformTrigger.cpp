@@ -50,7 +50,7 @@ void APlatformTrigger::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp,
 
 void APlatformTrigger::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("Deactivated")));
+	//GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("Deactivated")));
 
 	for (AMovingPlatform* platform : platforms_to_trigger)
 	{
