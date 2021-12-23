@@ -48,3 +48,25 @@ void UPuzzlePlatformsGameInstance::Join(FString ip_address)
 		player_controller->ClientTravel(ip_address, ETravelType::TRAVEL_Absolute);
 	}
 }
+
+	//Load Menu is being called in the Level BP.
+void UPuzzlePlatformsGameInstance::LoadMenu()
+{
+	if(menu_class != nullptr)
+	{
+			//Takes the widget class and makes it into an object. 
+		UUserWidget* menu = CreateWidget<UUserWidget>(this, menu_class);
+		menu->AddToViewport();
+	
+
+		APlayerController* player_controller = GetFirstLocalPlayerController();
+			// FInputModeDataBase is a struct for setting input types. 
+			// SetWidegetToFocus() takes in an "SWidget" type, so the widget object.TakeWidget() returns is SWidget type.
+		FInputModeUIOnly input_data;
+		input_data.SetWidgetToFocus(menu->TakeWidget());
+		input_data.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+		player_controller->bShowMouseCursor = true;
+		player_controller->SetInputMode(input_data);
+	}
+	
+}

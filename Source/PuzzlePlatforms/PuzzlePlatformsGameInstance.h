@@ -26,6 +26,8 @@ class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance
 	UPROPERTY()
 	TSubclassOf<class UUserWidget> menu_class;
 
+	UFUNCTION(BlueprintCallable, Exec, Category = "UMG")
+	void LoadMenu();
 
 	
 };
