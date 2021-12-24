@@ -15,9 +15,9 @@ bool UMainMenu::Initialize()
 			host_button->OnPressed.AddDynamic(this, &UMainMenu::HostServer);
 		}
 
-		if (host_button != nullptr)
+		if (join_button != nullptr)
 		{
-			host_button->OnPressed.AddDynamic(this, &UMainMenu::JoinServer);
+			join_button->OnPressed.AddDynamic(this, &UMainMenu::JoinServer);
 		}
 		
 
@@ -27,12 +27,23 @@ bool UMainMenu::Initialize()
 	return success;
 }
 
+void UMainMenu::SetMenuInterface(IMenuInterface* menu_in)
+{
+	this->menu_interface = menu_in;
+}
+
 void UMainMenu::HostServer()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Host Server in MainMenu.cpp"));
+	if (menu_interface != nullptr)
+	{
+		menu_interface->Host();
+	}
 }
 
 void UMainMenu::JoinServer()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Join Server in MainMenu.cpp"));
 }
+
+
+

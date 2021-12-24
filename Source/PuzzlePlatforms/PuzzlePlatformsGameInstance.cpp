@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 
 #include "PlatformTrigger.h"
+#include "MainMenu.h"
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitalizer)
 {
@@ -55,7 +56,7 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 	if(menu_class != nullptr)
 	{
 			//Takes the widget class and makes it into an object. 
-		UUserWidget* menu = CreateWidget<UUserWidget>(this, menu_class);
+		UMainMenu* menu = CreateWidget<UMainMenu>(this, menu_class);
 		menu->AddToViewport();
 	
 
@@ -67,6 +68,8 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 		input_data.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 		player_controller->bShowMouseCursor = true;
 		player_controller->SetInputMode(input_data);
+
+		menu->SetMenuInterface(this);
 	}
 	
 }
