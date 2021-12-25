@@ -24,11 +24,14 @@ class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, p
 	UFUNCTION(Exec)
 	void Join(FString ip_address);
 
+	UFUNCTION(BlueprintCallable, Exec, Category = "UMG")
+	void LoadMenu();
+
+private:
 	UPROPERTY()
 	TSubclassOf<class UUserWidget> menu_class;
 
-	UFUNCTION(BlueprintCallable, Exec, Category = "UMG")
-	void LoadMenu();
+	class UMainMenu* main_menu;
 
 	
 };
