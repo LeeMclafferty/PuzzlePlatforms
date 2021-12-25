@@ -21,6 +21,8 @@ class PUZZLEPLATFORMS_API IMenuInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	
-		// Setting a function to = 0 is pure virtual void and makes the function not require a defition in the parent class
+		// Setting a function to = 0 is pure virtual void and makes the function not require a definition in the parent class
 	virtual void Host() = 0;
+
+	virtual void Join(FString ip_address) = 0;
 };

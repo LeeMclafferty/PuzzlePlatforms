@@ -32,6 +32,9 @@ private:
 	class UButton* join_button;
 
 	UPROPERTY(meta = (BindWidget))
+	class UButton* join_button_1;
+
+	UPROPERTY(meta = (BindWidget))
 	class UButton* back_button;
 
 	UPROPERTY(meta = (BindWidget))
@@ -42,6 +45,9 @@ private:
 
 	UPROPERTY(meta = (BindWidget))
 	class UWidget* main_menu;
+
+	UPROPERTY(meta = (BindWidget))
+	class UEditableTextBox* ip_address_field;
 
 	UFUNCTION()
 	void HostServer();

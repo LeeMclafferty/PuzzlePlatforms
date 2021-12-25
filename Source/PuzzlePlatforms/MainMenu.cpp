@@ -4,6 +4,7 @@
 #include "MainMenu.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
+#include "Components/EditableTextBox.h"
 
 bool UMainMenu::Initialize()
 {
@@ -18,12 +19,18 @@ bool UMainMenu::Initialize()
 
 		if (join_button != nullptr)
 		{
-			join_button->OnPressed.AddDynamic(this, &UMainMenu::OpenJoinMenu);
+			if(main_menu)
+				join_button->OnPressed.AddDynamic(this, &UMainMenu::OpenJoinMenu);
 		}
 		
 		if (back_button != nullptr)
 		{
 			back_button->OnPressed.AddDynamic(this, &UMainMenu::OpenMainMenu);
+		}
+
+		if (join_button_1 != nullptr)
+		{
+			join_button_1->OnPressed.AddDynamic(this, &UMainMenu::JoinServer);
 		}
 		
 
@@ -96,7 +103,14 @@ void UMainMenu::OpenMainMenu()
 
 void UMainMenu::JoinServer()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Join Server in MainMenu.cpp"));
+
+	if (menu_interface != nullptr)
+	{
+		if(ip_address_field != nullptr)
+		{ 
+			menu_interface->Join(ip_address_field->GetText().ToString());
+		}
+	}
 }
 
 
