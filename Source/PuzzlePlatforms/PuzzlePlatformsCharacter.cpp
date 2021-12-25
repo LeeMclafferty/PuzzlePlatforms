@@ -9,6 +9,9 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 
+#include "PauseMenu.h"
+#include "PlayerControllerBase.h"
+
 //////////////////////////////////////////////////////////////////////////
 // APuzzlePlatformsCharacter
 
@@ -74,8 +77,19 @@ void APuzzlePlatformsCharacter::SetupPlayerInputComponent(class UInputComponent*
 
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &APuzzlePlatformsCharacter::OnResetVR);
+
+		//Open Pause Menu
+	PlayerInputComponent->BindAction("Pause Menu", IE_Pressed, this, &APuzzlePlatformsCharacter::OpenPauseMenu);
 }
 
+
+void APuzzlePlatformsCharacter::OpenPauseMenu()
+{
+	if(APlayerControllerBase* pc = Cast<APlayerControllerBase>(GetController()))
+	{
+		pc->Pause();
+	}
+}
 
 void APuzzlePlatformsCharacter::OnResetVR()
 {

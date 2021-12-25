@@ -68,5 +68,13 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+protected:
+	
+	UFUNCTION()
+	void OpenPauseMenu(); 
+
+	/*UPROPERTY()
+	TSubclassOf<class UUserWidget*> pause_menu_class;*/
 };
 
