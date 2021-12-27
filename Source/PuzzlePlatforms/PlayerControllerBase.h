@@ -19,6 +19,7 @@ public:
 
 	virtual void Pause();
 
+
 protected:
 
 	UPROPERTY()

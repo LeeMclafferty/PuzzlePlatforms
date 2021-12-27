@@ -2,25 +2,43 @@
 
 
 #include "PauseMenu.h"
+#include "Engine/World.h"
+#include "Components/Button.h"
+#include "Kismet/KismetSystemLibrary.h"
+
+#include <PuzzlePlatforms/PlayerControllerBase.h>
 
 bool UPauseMenu::Initialize()
 {
 	bool success = Super::Initialize();
 
+	if (continue_button != nullptr)
+	{
+		continue_button->OnPressed.AddDynamic(this, &UPauseMenu::OnPressContinue);
+	}
+	if (quit_button != nullptr)
+	{
+		quit_button->OnPressed.AddDynamic(this, &UPauseMenu::OnPressQuit);
+	}
+
 	return success;
 }
 
-void UPauseMenu::SetUp()
+void UPauseMenu::OnPressContinue()
 {
-	this->AddToViewport();
+	this->RemoveFromViewport();
 
-	UWorld* world = GetWorld();
+	APlayerControllerBase* pc = Cast<APlayerControllerBase>(GetWorld()->GetFirstPlayerController());
+	FInputModeGameOnly input_mode;
+	
+	pc->SetShowMouseCursor(false);
+	pc->SetInputMode(input_mode);
+}
 
+void UPauseMenu::OnPressQuit()
+{
+	APlayerControllerBase* pc = Cast<APlayerControllerBase>(GetWorld()->GetFirstPlayerController());
 
-		// FInputModeDataBase is a struct for setting input types. 
-		// SetWidegetToFocus() takes in an "SWidget" type, so the widget object.TakeWidget() returns is SWidget type.
-	FInputModeUIOnly input_data;
-	input_data.SetWidgetToFocus(this->TakeWidget());
-	input_data.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	UKismetSystemLibrary::QuitGame(pc->GetOwner(), pc, EQuitPreference::Quit, false);
 }
 

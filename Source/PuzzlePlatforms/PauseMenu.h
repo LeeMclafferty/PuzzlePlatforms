@@ -4,22 +4,37 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "MenuBase.h"
 #include "PauseMenu.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PUZZLEPLATFORMS_API UPauseMenu : public UUserWidget
+class PUZZLEPLATFORMS_API UPauseMenu : public UMenuBase
 {
 	GENERATED_BODY()
 
 public:
 
-	void SetUp();
 
 protected:
 
 	virtual bool Initialize() override;
+
+private:
+	
+	UPROPERTY(meta = (BindWidget))
+	class UButton* continue_button;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* quit_button;
+
+	UFUNCTION()
+	void OnPressContinue();
+
+	UFUNCTION()
+	void OnPressQuit();
+
 	
 };

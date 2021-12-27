@@ -4,6 +4,7 @@
 #include "PuzzlePlatformsGameInstance.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Blueprint/UserWidget.h"
+#include "TimerManager.h"
 
 #include "PlatformTrigger.h"
 #include "MainMenu.h"
@@ -20,21 +21,18 @@ UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitiali
 void UPuzzlePlatformsGameInstance::Init()
 {
 	
-	if (menu_class != nullptr)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Found class: %s"), *menu_class->GetName());
-	}
 
 }
 
 void UPuzzlePlatformsGameInstance::Host()
 {
-	if (main_menu != nullptr)
-	{
-		main_menu->OnLevelRemovedFromWorld(GetWorld()->GetLevel(0), GetWorld());
-	}
 
 	UWorld* world = GetWorld();
+	//if (main_menu != nullptr)
+	//{
+	//	FTimerHandle ui_timer;
+	//	//world->GetTimerManager().SetTimer(ui_timer, this, &UPuzzlePlatformsGameInstance::HoldForRemoveUI, 5, false);
+	//}
 	if (world != nullptr)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, FString::Printf(TEXT("Host")));
@@ -59,7 +57,7 @@ void UPuzzlePlatformsGameInstance::Join(FString ip_address)
 }
 
 	//Load Menu is being called in the Level BP.
-void UPuzzlePlatformsGameInstance::LoadMenu()
+void UPuzzlePlatformsGameInstance::LoadMainMenu()
 {
 	if(menu_class != nullptr)
 	{
@@ -68,7 +66,12 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 	
 
 		main_menu->SetMenuInterface(this);
-		main_menu->SetUp();
+		main_menu->Setup();
 	}
 
+}
+
+void UPuzzlePlatformsGameInstance::HoldForRemoveUI()
+{
+	main_menu->OnLevelRemovedFromWorld(GetWorld()->GetLevel(0), GetWorld());
 }

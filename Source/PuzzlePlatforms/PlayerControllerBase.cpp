@@ -18,8 +18,8 @@ void APlayerControllerBase::Pause()
 	{
 		pause_menu = CreateWidget<UPauseMenu>(this, pause_class);
 
-		GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("Pause")));
+			//GEngine->AddOnScreenDebugMessage(-1, 10, FColor::Yellow, FString::Printf(TEXT("Pause")));
 	
-		pause_menu->SetUp();
+		pause_menu->Setup();
 	}
 }

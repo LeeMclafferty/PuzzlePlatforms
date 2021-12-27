@@ -5,21 +5,20 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "MenuInterface.h"
+#include "MenuBase.h"
 #include "MainMenu.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PUZZLEPLATFORMS_API UMainMenu : public UUserWidget
+class PUZZLEPLATFORMS_API UMainMenu : public UMenuBase
 {
 	GENERATED_BODY()
 
 public:
 
-	void SetMenuInterface(IMenuInterface* menu_in);
-	void SetUp();
-	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
+	
 
 protected:
 	virtual bool Initialize() override;
@@ -60,8 +59,6 @@ private:
 
 	UFUNCTION()
 	void OpenMainMenu();
-
-	IMenuInterface* menu_interface;
 
 	
 };
