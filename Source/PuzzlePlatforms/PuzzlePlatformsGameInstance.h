@@ -28,7 +28,7 @@ class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, p
 	void LoadMainMenu();
 
 	UFUNCTION(Exec)
-	void ReturnToMainMenu();
+	void ReturnToMainMenu() override;
 
 
 private:
