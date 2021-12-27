@@ -6,6 +6,7 @@
 #include "Blueprint/UserWidget.h"
 #include "TimerManager.h"
 
+#include "PlayerControllerBase.h"
 #include "PlatformTrigger.h"
 #include "MainMenu.h"
 
@@ -35,7 +36,7 @@ void UPuzzlePlatformsGameInstance::Host()
 	//}
 	if (world != nullptr)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, FString::Printf(TEXT("Host")));
+		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Green, FString::Printf(TEXT("Hosting Game")));
 		world->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
 	}
 
@@ -43,12 +44,12 @@ void UPuzzlePlatformsGameInstance::Host()
 
 void UPuzzlePlatformsGameInstance::Join(FString ip_address)
 {
-	if (main_menu != nullptr)
+	/*if (main_menu != nullptr)
 	{
 		main_menu->OnLevelRemovedFromWorld(GetWorld()->GetLevel(0), GetWorld());
-	}
+	}*/
 	 
-	APlayerController* player_controller = GetFirstLocalPlayerController();
+	APlayerControllerBase* player_controller = Cast<APlayerControllerBase>(GetFirstLocalPlayerController());
 	if (player_controller != nullptr)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5, FColor::White, FString::Printf(TEXT(" Joining IP: %s"), *ip_address));
@@ -69,6 +70,19 @@ void UPuzzlePlatformsGameInstance::LoadMainMenu()
 		main_menu->Setup();
 	}
 
+}
+
+void UPuzzlePlatformsGameInstance::ReturnToMainMenu()
+{
+	APlayerControllerBase* player_controller = Cast<APlayerControllerBase>(GetFirstLocalPlayerController());
+	UWorld* world = GetWorld();
+
+	if (world->IsServer())
+	{
+		world->ServerTravel("/Game/aa_Maps/MainMenuLevel");
+	}else{
+		player_controller->ClientTravel("/Game/aa_Maps/MainMenuLevel", ETravelType::TRAVEL_Absolute);
+	}
 }
 
 void UPuzzlePlatformsGameInstance::HoldForRemoveUI()

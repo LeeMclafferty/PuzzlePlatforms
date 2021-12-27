@@ -21,6 +21,11 @@ bool UPauseMenu::Initialize()
 		quit_button->OnPressed.AddDynamic(this, &UPauseMenu::OnPressQuit);
 	}
 
+	if (back_button)
+	{
+		back_button->OnPressed.AddDynamic(this, &UPauseMenu::OnPressReturn);
+	}
+
 	return success;
 }
 
@@ -40,5 +45,10 @@ void UPauseMenu::OnPressQuit()
 	APlayerControllerBase* pc = Cast<APlayerControllerBase>(GetWorld()->GetFirstPlayerController());
 
 	UKismetSystemLibrary::QuitGame(pc->GetOwner(), pc, EQuitPreference::Quit, false);
+}
+
+void UPauseMenu::OnPressReturn()
+{
+	GetGameInstance()->ReturnToMainMenu();
 }
 

@@ -27,6 +27,7 @@ protected:
 
 	IMenuInterface* menu_interface;
 
+
 private:
 	
 

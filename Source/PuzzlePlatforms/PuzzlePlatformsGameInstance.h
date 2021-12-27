@@ -27,6 +27,10 @@ class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, p
 	UFUNCTION(BlueprintCallable, Exec, Category = "UMG")
 	void LoadMainMenu();
 
+	UFUNCTION(Exec)
+	void ReturnToMainMenu();
+
+
 private:
 	
 		// This function is so I can put giving player control on a timer. 

@@ -5,6 +5,9 @@
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
 #include "Components/EditableTextBox.h"
+#include "Kismet/KismetSystemLibrary.h"
+
+#include "PlayerControllerBase.h"
 
 bool UMainMenu::Initialize()
 {
@@ -12,25 +15,30 @@ bool UMainMenu::Initialize()
 
 	if (success)
 	{
-		if (host_button != nullptr)
+		if (host_button)
 		{
 			host_button->OnPressed.AddDynamic(this, &UMainMenu::HostServer);
 		}
 
-		if (join_button != nullptr)
+		if (join_button)
 		{
 			if(main_menu)
 				join_button->OnPressed.AddDynamic(this, &UMainMenu::OpenJoinMenu);
 		}
 		
-		if (back_button != nullptr)
+		if (back_button)
 		{
 			back_button->OnPressed.AddDynamic(this, &UMainMenu::OpenMainMenu);
 		}
 
-		if (join_button_1 != nullptr)
+		if (join_button_1)
 		{
 			join_button_1->OnPressed.AddDynamic(this, &UMainMenu::JoinServer);
+		}
+
+		if (quit_button)
+		{
+			quit_button->OnPressed.AddDynamic(this, &UMainMenu::OnPressQuit);
 		}
 		
 
@@ -56,6 +64,13 @@ void UMainMenu::OpenJoinMenu()
 void UMainMenu::OpenMainMenu()
 {
 	menu_switcher->SetActiveWidget(main_menu);
+}
+
+void UMainMenu::OnPressQuit()
+{
+	APlayerControllerBase* pc = Cast<APlayerControllerBase>(GetWorld()->GetFirstPlayerController());
+
+	UKismetSystemLibrary::QuitGame(pc->GetOwner(), pc, EQuitPreference::Quit, false);
 }
 
 void UMainMenu::JoinServer()

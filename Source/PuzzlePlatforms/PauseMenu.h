@@ -30,11 +30,17 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	class UButton* quit_button;
 
+	UPROPERTY(meta = (BindWidget))
+	class UButton* back_button;
+
 	UFUNCTION()
 	void OnPressContinue();
 
 	UFUNCTION()
 	void OnPressQuit();
+
+	UFUNCTION()
+	void OnPressReturn();
 
 	
 };
